@@ -1,13 +1,13 @@
 package com.example.logintodatabase.models.mappers;
 
-import com.example.logintodatabase.models.User;
+import com.example.logintodatabase.models.UserForm;
 import com.example.logintodatabase.models.entities.UserEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserToUserEntityMapper extends Mapper<User, UserEntity> {
+public class UserToUserEntityMapper extends Mapper<UserForm, UserEntity> {
     @Override
-    public UserEntity map(User key) {
+    public UserEntity map(UserForm key) {
         UserEntity userEntity = new UserEntity();
         userEntity.setName(key.getName());
         userEntity.setPassword(key.getPassword());

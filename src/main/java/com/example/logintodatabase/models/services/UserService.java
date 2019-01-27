@@ -1,6 +1,6 @@
 package com.example.logintodatabase.models.services;
 
-import com.example.logintodatabase.models.User;
+import com.example.logintodatabase.models.UserForm;
 import com.example.logintodatabase.models.mappers.UserToUserEntityMapper;
 import com.example.logintodatabase.models.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +12,28 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public void addUser(User user){
-        userRepository.save(new UserToUserEntityMapper().map(user));
+
+    /**
+     *
+     * @param userForm
+     * @return
+     */
+    public boolean addUser(UserForm userForm){
+
+
+        if(!checkIfUsernameIsFree(userForm)){
+            return false;
+        }
+
+        userRepository.save(new UserToUserEntityMapper().map(userForm));
+        return true;
+
     }
 
-    public boolean checkIfUsernameIsFree(User user){
-        userRepository.existsByName(user.getName());
-        return false;
+    private boolean checkIfUsernameIsFree(UserForm userForm){
+        return !userRepository.existsByName(userForm.getName());
+
     }
+
 
 }

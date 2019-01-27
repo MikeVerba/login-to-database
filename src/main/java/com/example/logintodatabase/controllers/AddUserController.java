@@ -1,6 +1,6 @@
 package com.example.logintodatabase.controllers;
 
-import com.example.logintodatabase.models.User;
+import com.example.logintodatabase.models.UserForm;
 import com.example.logintodatabase.models.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,14 +18,17 @@ public class AddUserController {
 
     @GetMapping("/add-user")
     public String loginForm(Model model){
-        model.addAttribute("user",new User());
+        model.addAttribute("user",new UserForm());
         return "add-user";
     }
     @PostMapping("add-user")
     @ResponseBody
-    public String getUser(@ModelAttribute User user){
+    public String getUser(@ModelAttribute UserForm userForm){
 
-        userService.addUser(user);
+        if(!userService.addUser(userForm)){
+            return "username is busy";
+        }
+
 
         return "Thank you!!";
 

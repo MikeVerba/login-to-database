@@ -9,4 +9,5 @@ public interface UserRepository extends CrudRepository<UserEntity,Integer> {
     boolean existsByName(String name);
     boolean existsByNameAndPassword(String name, String password);
 
+
 }
